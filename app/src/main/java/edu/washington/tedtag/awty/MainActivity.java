@@ -6,6 +6,7 @@ import android.content.*;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,17 @@ public class MainActivity extends ActionBarActivity {
     int interval;
     BroadcastReceiver alarmReceiver = new BroadcastReceiver() {
         @Override public void onReceive(final Context c, Intent i) {
-            Toast.makeText(MainActivity.this, number + ": " + msg, Toast.LENGTH_SHORT).show();
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(number, null, msg, null, null);
+                Toast.makeText(getApplicationContext(), "SMS Sent!",
+                        Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),
+                        "SMS failed, please try again later!",
+                        Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
     };
 
