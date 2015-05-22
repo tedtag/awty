@@ -86,8 +86,8 @@ public class MainActivity extends ActionBarActivity {
                         msg    = msgText.getText().toString();
 
                         am.setRepeating(AlarmManager.RTC,
-                                System.currentTimeMillis() + interval * 1000,
-                                interval * 1000, alarmIntent);
+                                System.currentTimeMillis() + interval * 1000 * 60,
+                                interval * 1000 * 60, alarmIntent);
                         startButton.setText("Stop");
                     }
                 } else {
